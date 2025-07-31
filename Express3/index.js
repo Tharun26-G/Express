@@ -39,6 +39,11 @@ app.get('/things/:name/:id', (req, res)=>{
         name
     })
 })
+
+//handling 404 for unmatched routes
+app.get('*', (req, res) => {
+  res.status(404).send('404 - Route Not Found');
+});
 app.listen(port, () => {
     console.log(`port is listening on ${port}`);
 })
