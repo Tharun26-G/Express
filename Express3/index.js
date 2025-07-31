@@ -3,18 +3,19 @@ const app = express();
 
 const port = 3000;
 
+app.use(express.json()); // Middleware to parse JSON bodies
 app.get('/', (req,res) => {
     res.send("hello express");
 })
 
-app.post('/user', express.json(), (req,res) => { //express.json is middleware
+app.post('/user', (req,res) => { //express.json is middleware
     const { name, email } = req.body;
     res.json({
         message: `user ${name} with email ${email} is created successfully`
     });
 });
 
-app.put('/user/:id', express.json(), (req, res) => { //express.json is middleware
+app.put('/user/:id', (req, res) => { //express.json is middleware
     const userId = req.params.id;
     const { name, email } = req.body;
     res.json({
