@@ -30,6 +30,15 @@ app.delete('/user/:id', (req, res) => {
     });
 });
 
+
+//multiple routes
+app.get('/things/:name/:id', (req, res)=>{
+    const { name, id } = req.params
+    res.json({
+        id,
+        name
+    })
+})
 app.listen(port, () => {
     console.log(`port is listening on ${port}`);
 })
