@@ -14,6 +14,14 @@ app.post('/user', express.json(), (req,res) => { //express.json is middleware
     });
 });
 
+app.put('/user/:id', express.json(), (req, res) => { //express.json is middleware
+    const userId = req.params.id;
+    const { name, email } = req.body;
+    res.json({
+        message: `userId ${userId} user ${name} with email ${email} is created successfully`
+    });
+});
+
 app.listen(port, () => {
     console.log(`port is listening on ${port}`);
 })
