@@ -23,6 +23,13 @@ app.put('/user/:id', (req, res) => { //express.json is middleware
     });
 });
 
+app.delete('/user/:id', (req, res) => {
+    const userId = req.params.id;
+    res.json({
+        message: `userId ${userId} is deleted successfully`
+    });
+});
+
 app.listen(port, () => {
     console.log(`port is listening on ${port}`);
 })
