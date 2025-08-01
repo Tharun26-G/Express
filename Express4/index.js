@@ -8,9 +8,30 @@ app.use((req, res, next) => {
     next(); 
 });
 
+//route based middleware
+app.use('/welcome',(req, res, next) => {
+    console.log("time is" + Date.now())
+    next(); 
+});
+
+//evenet listner - to wait route to complete then continue
+app.use('/welcome', (req, res, next) => {
+    console.log('start');
+
+    res.on('finish', () => {
+        console.log("end")
+    })
+    next();
+})
+
 
 app.get('/', (req, res) => {
     res.send("hello express");
+});
+
+app.get('/welcome', (req, res) => {
+    res.send("welcome");
+    console.log("middle")
 });
 
 
