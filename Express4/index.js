@@ -34,6 +34,16 @@ app.get('/welcome', (req, res) => {
     console.log("middle")
 });
 
+//error handler
+app.get('/error', () => {
+    throw new Error('this is test error')
+})
+
+//error handler - 4 parameters
+app.use((err, req, res, next) => {
+    console.log(err.message);
+    res.send("internal server error")
+})
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
