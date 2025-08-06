@@ -32,6 +32,16 @@ app.post('/person',express.json(), async(req, res) => {
   console.log(newPerson)
 })
 
+app.put('/person/:id', express.json(), async (req, res) => {
+  const name = req.body.name;
+
+  const personData = await Person.find(name)
+
+  console.log(personData);
+  res.send(`Person with name ${name} found`);
+});
+
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
