@@ -18,19 +18,27 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-app.post('/person',express.json(), async(req, res) => {
+app.post('/person', express.json(), async (req, res) => {
   console.log(req.body);
-  //saving in the database
-  const { email, name, age } = req.body;
-  const newPerson = new Person({
-    name,
-    age,
-    email
-  })
-  await newPerson.save()
-  res.send("person added")
-  console.log(newPerson)
-})
+
+  try {
+    const { email, name, age } = req.body;
+
+    const newPerson = new Person({
+      name,
+      age,
+      email
+    });
+
+    await newPerson.save();
+    console.log(newPerson);
+    res.send("Person added");
+
+  } catch (error) {
+    res.send("Error adding person: " + error.message);
+  }
+});
+
 
 app.put('/person/:id', express.json(), async (req, res) => {
   const name = req.body.name;
@@ -40,7 +48,12 @@ app.put('/person/:id', express.json(), async (req, res) => {
   console.log(personData);
   res.send(`Person with name ${name} found`);
 });
-
+ 
+app.delete('/person/:id', async (req, res) => {
+  const id = req.params.id;
+  await Person.findByIdAndDelete(id);
+  res.send(`Person with id ${id} deleted`);
+});
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
